@@ -158,9 +158,8 @@ defmodule Entice.Entity.Coordination do
       changed =
         both
         |> Map.keys
-        |> Enum.filter_map(
-            fn key -> old_attrs[key] != new_attrs[key] end,
-            fn key -> {key, new_attrs[key]} end)
+        |> Enum.filter(fn key -> old_attrs[key] != new_attrs[key] end)
+        |> Enum.map(fn key -> {key, new_attrs[key]} end)
         |> Enum.into(%{})
       {added, changed, missing}
     end
