@@ -19,7 +19,7 @@ defmodule Entice.Entity.Suicide do
 
   @doc "Idea taken from Akka, terminates the entity normally"
   def poison_pill(entity),
-  do: Coordination.notify(entity, poison_pill_message)
+  do: Coordination.notify(entity, poison_pill_message())
 
 
   @doc """

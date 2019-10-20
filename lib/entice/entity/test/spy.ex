@@ -16,7 +16,7 @@ defmodule Entice.Entity.Test.Spy do
   defstruct reporter: nil
 
 
-  def register(entity, report_to \\ self) when is_pid(report_to),
+  def register(entity, report_to \\ self()) when is_pid(report_to),
   do: Entity.put_behaviour(entity, Spy.Behaviour, report_to)
 
 

@@ -22,7 +22,7 @@ defmodule Entice.Logic.CoordinationTest do
 
 
   test "entity notification", %{entity_id: eid} do
-    Spy.register(eid, self)
+    Spy.register(eid, self())
     assert :ok = Coordination.notify(eid, :something)
     assert_receive %{sender: ^eid, event: :something}
   end
@@ -35,9 +35,9 @@ defmodule Entice.Logic.CoordinationTest do
     Coordination.register(e1, __MODULE__)
     Coordination.register(e2, __MODULE__)
     Coordination.register(e3, __MODULE__)
-    Spy.register(e1, self)
-    Spy.register(e2, self)
-    Spy.register(e3, self)
+    Spy.register(e1, self())
+    Spy.register(e2, self())
+    Spy.register(e3, self())
 
     Coordination.notify_all(__MODULE__, :test_message)
 
@@ -54,9 +54,9 @@ defmodule Entice.Logic.CoordinationTest do
     Coordination.register(e1, __MODULE__)
     Coordination.register(e2, __MODULE__)
     Coordination.register(e3, __MODULE__)
-    Spy.register(e1, self)
-    Spy.register(e2, self)
-    Spy.register(e3, self)
+    Spy.register(e1, self())
+    Spy.register(e2, self())
+    Spy.register(e3, self())
 
     Coordination.notify_locally(eid, :test_message)
 
