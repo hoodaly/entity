@@ -120,7 +120,7 @@ defmodule Entice.Entity.Coordination do
     def handle_event(
         {:entity_join, %{entity_id: sender_entity, attributes: _attrs}},
         %Entity{attributes: attribs} = entity) do
-      Coordination.notify(sender_entity, {:entity_join, %{entity_id: entity.id, attributes: attribs}}) # announce ourselfes to the new entity
+      #Coordination.notify(sender_entity, {:entity_join, %{entity_id: entity.id, attributes: attribs}}) # announce ourselfes to the new entity
       {:ok, entity}
     end
 
