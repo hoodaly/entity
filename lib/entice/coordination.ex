@@ -21,6 +21,8 @@ defmodule Entice.Entity.Coordination do
   def start(), do: :pg2.start()
 
 
+  def register(entity, %Entity{id: channel_id}), do: register(entity, channel_id)
+  def register(entity, channel_id) when not is_atom(channel_id), do: register(entity, String.to_atom(channel_id))
   def register(entity_id, channel) when not is_pid(entity_id) and is_atom(channel), do: register(Entity.fetch!(entity_id), channel)
   def register(entity, channel) when is_atom(channel) do
     :pg2.create(channel) # does nothing if exists
@@ -29,7 +31,9 @@ defmodule Entice.Entity.Coordination do
   end
 
 
-  def register_observer(pid, channel) when is_pid(pid) do
+  def register_observer(pid, %Entity{id: channel_id}) when is_pid(pid), do: register_observer(pid, channel_id)
+  def register_observer(pid, channel) when is_pid(pid) and not is_atom(channel), do: register_observer(pid, String.to_atom(channel))
+  def register_observer(pid, channel) when is_pid(pid) and is_atom(channel) do
     :pg2.create(channel) # does nothing if exists
     :pg2.join(channel, pid)
     notify_observe(channel, pid)
